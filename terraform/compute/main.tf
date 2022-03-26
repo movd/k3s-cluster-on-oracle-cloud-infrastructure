@@ -68,7 +68,7 @@ resource "oci_core_instance" "server_2" {
 resource "oci_core_instance" "worker" {
   count               = 2
   compartment_id      = var.compartment_id
-  availability_domain = data.oci_identity_availability_domain.ad_1.name
+  availability_domain = data.oci_identity_availability_domain.ad_2.name
   display_name        = "k3s-worker-${count.index + 1}"
   shape               = local.worker_instance_config.shape_id
   source_details {
