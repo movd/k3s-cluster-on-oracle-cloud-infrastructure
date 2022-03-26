@@ -14,7 +14,10 @@ resource "oci_core_instance" "server_1" {
   create_vnic_details {
     subnet_id  = var.cluster_subnet_id
     private_ip = local.server_instance_config.server_ip_1
-    nsg_ids    = [var.permit_ssh_nsg_id]
+    nsg_ids = [
+      var.permit_ssh_nsg_id,
+      var.permit_kubernetes_api_nsg_id,
+    ]
   }
   metadata = {
     "ssh_authorized_keys" = local.server_instance_config.metadata.ssh_authorized_keys
@@ -47,7 +50,10 @@ resource "oci_core_instance" "server_2" {
   create_vnic_details {
     subnet_id  = var.cluster_subnet_id
     private_ip = local.server_instance_config.server_ip_2
-    nsg_ids    = [var.permit_ssh_nsg_id]
+    nsg_ids = [
+      var.permit_ssh_nsg_id,
+      var.permit_kubernetes_api_nsg_id,
+    ]
   }
   metadata = {
     "ssh_authorized_keys" = local.server_instance_config.metadata.ssh_authorized_keys
