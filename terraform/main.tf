@@ -33,3 +33,18 @@ module "compute" {
   permit_kubernetes_api_nsg_id = module.network.permit_kubernetes_api.id
   ssh_authorized_keys          = var.ssh_authorized_keys
 }
+
+module "loadbalancer" {
+  source = "./loadbalancer"
+  depends_on = [
+    module.network,
+    module.compute,
+  ]
+
+  compartment_id    = var.compartment_id
+  tenancy_ocid      = var.tenancy_ocid
+  cluster_subnet_id = module.network.cluster_subnet.id
+  vcn_id            = module.network.vcn.id
+  server_1_id       = module.compute.server_1_id
+  server_2_id       = module.compute.server_2_id
+}
